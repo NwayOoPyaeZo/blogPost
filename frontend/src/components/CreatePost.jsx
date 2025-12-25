@@ -45,7 +45,7 @@ const CreatePost = ({ onPostCreated }) => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#1e90ff] to-[#00bcd4] text-white font-semibold rounded-lg px-4 py-2 shadow-md hover:shadow-lg hover:shadow-[#00bcd4]/30 transition-all"
+            className="inline-flex items-center gap-2 bg-linear-to-r from-[#1e90ff] to-[#00bcd4] text-white font-semibold rounded-lg px-4 py-2 shadow-md hover:shadow-lg hover:shadow-[#00bcd4]/30 transition-all"
           >
             Create
           </button>
