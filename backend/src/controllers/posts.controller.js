@@ -68,10 +68,42 @@ const getPostById = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content, author } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        message: "Title and content are required",
+      });
+    }
+
+    const result = await pool.query(
+      "UPDATE posts SET title = $1, content = $2, author = $3 WHERE id = $4 RETURNING *",
+      [title, content, author, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Failed to update post",
+    });
+  }
+};
+
 
 module.exports = {
     createPost,
     getAllPosts,
     getPostById,
+    updatePost,
 };
 
