@@ -9,3 +9,20 @@ export const fetchPosts = async () => {
 
 	return response.json();
 };
+
+export const createPost = async (postData) => {
+  const response = await fetch("http://localhost:5000/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create post");
+  }
+
+  return response.json();
+};
+
