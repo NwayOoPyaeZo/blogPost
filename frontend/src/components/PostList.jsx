@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPosts } from "../services/api";
+import { fetchPosts, deletePost } from "../services/api";
 import CreatePost from "./CreatePost";
 import PostItem from "./PostItem";
 
@@ -8,6 +8,11 @@ const PostList = () => {
 
   const loadPosts = () => {
     fetchPosts().then((data) => setPosts(data));
+  };
+
+  const handleDelete = async (id) => {
+    await deletePost(id);
+    loadPosts();
   };
 
   useEffect(() => {
@@ -25,7 +30,7 @@ const PostList = () => {
 
       <div className="grid gap-4 sm:grid-cols-2">
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} />
+          <PostItem key={post.id} post={post} onDelete={handleDelete} onUpdated={loadPosts} />
         ))}
       </div>
     </section>
