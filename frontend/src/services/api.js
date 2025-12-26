@@ -11,7 +11,7 @@ export const fetchPosts = async () => {
 };
 
 export const createPost = async (postData) => {
-  const response = await fetch("http://localhost:5000/posts", {
+  const response = await fetch(`${API_BASE_URL}/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,6 +21,34 @@ export const createPost = async (postData) => {
 
   if (!response.ok) {
     throw new Error("Failed to create post");
+  }
+
+  return response.json();
+};
+
+export const updatePost = async (id, postData) => {
+  const response = await fetch(`${API_BASE_URL}/posts/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update post");
+  }
+
+  return response.json();
+};
+
+export const deletePost = async (id) => {
+  const response = await fetch(`${API_BASE_URL}/posts/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete post");
   }
 
   return response.json();
