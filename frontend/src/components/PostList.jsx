@@ -6,13 +6,24 @@ import PostItem from "./PostItem";
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
-  const loadPosts = () => {
-    fetchPosts().then((data) => setPosts(data));
+  const loadPosts = async () => {
+    try {
+      const data = await fetchPosts();
+      setPosts(data);
+    } catch (error) {
+      console.error("Error loading posts:", error);
+      alert("Failed to load posts. Please try again.");
+    }
   };
 
   const handleDelete = async (id) => {
-    await deletePost(id);
-    loadPosts();
+    try {
+      await deletePost(id);
+      loadPosts();
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert("Failed to delete post. Please try again.");
+    }
   };
 
   useEffect(() => {
